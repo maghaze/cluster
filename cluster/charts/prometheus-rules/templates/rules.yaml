@@ -1,0 +1,33 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "prometheus-rules.fullname" . }}-alerts
+  labels:
+    {{- include "prometheus-rules.labels" . | nindent 4 }}
+    {{- if .Values.additional_labels -}}
+    {{ .Values.additional_labels | toYaml | nindent 4 -}}
+    {{- end }}
+spec:
+  groups:
+  {{- range $path, $_ := .Files.Glob "alerts/*" }}
+    - name: {{ $path }}
+      rules:
+      {{- $.Files.Get $path | nindent 8 }}
+  {{- end }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "prometheus-rules.fullname" . }}-rules
+  labels:
+    {{- include "prometheus-rules.labels" . | nindent 4 }}
+    {{- if .Values.additional_labels -}}
+    {{ .Values.additional_labels | toYaml | nindent 4 -}}
+    {{- end }}
+spec:
+  groups:
+  {{- range $path, $_ := .Files.Glob "rules/*" }}
+    - name: {{ $path }}
+      rules:
+      {{- $.Files.Get $path | nindent 8 }}
+  {{- end }}

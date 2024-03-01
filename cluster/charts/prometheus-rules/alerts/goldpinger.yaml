@@ -1,0 +1,11 @@
+- alert: goldpinger_nodes_unhealthy
+  expr: |
+    sum(goldpinger_nodes_health_total{job="gold-pinger-goldpinger", status="unhealthy"})
+    BY (instance, goldpinger_instance) > 0
+  for: 5m
+  labels:
+    severity: critical
+  annotations:
+    description: |
+      Goldpinger instance {{ $labels.goldpinger_instance }} has been reporting unhealthy nodes for at least 5 minutes.
+    summary: Goldpinger Instance is down

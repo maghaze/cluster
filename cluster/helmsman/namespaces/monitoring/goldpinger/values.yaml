@@ -1,0 +1,11 @@
+service:
+  type: ClusterIP
+
+prometheusRule:
+  enabled: false
+
+serviceMonitor:
+  enabled: true
+
+commonLabels:
+  monitor: default-prometheus

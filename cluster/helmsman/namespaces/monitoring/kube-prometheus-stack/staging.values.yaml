@@ -1,0 +1,55 @@
+DEFAULTS:
+  ingress_annotations: &ingress_annotations
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    nginx.ingress.kubernetes.io/auth-realm: Authentication Required
+    nginx.ingress.kubernetes.io/auth-type: basic
+
+alertmanager:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      <<: *ingress_annotations
+      nginx.ingress.kubernetes.io/auth-secret: alertmanager-basic-auth
+    hosts:
+      - alertmanager.maghaze.mohammadne.me
+    pathType: Prefix
+    paths:
+      - /
+    tls:
+      - secretName: alertmanager-tls
+        hosts:
+          - alertmanager.maghaze.mohammadne.me
+        
+grafana:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-production"
+    hosts:
+      - grafana.maghaze.mohammadne.me
+    pathType: Prefix
+    paths:
+      - /
+    tls:
+      - secretName: grafana-tls
+        hosts:
+          - grafana.maghaze.mohammadne.me
+
+prometheus:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      <<: *ingress_annotations
+      nginx.ingress.kubernetes.io/auth-secret: prometheus-basic-auth
+    hosts:
+      - prometheus.maghaze.mohammadne.me
+    pathType: Prefix
+    paths:
+      - /
+    tls:
+      - secretName: prometheus-tls
+        hosts:
+          - prometheus.maghaze.mohammadne.me

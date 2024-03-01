@@ -1,0 +1,7 @@
+creation_rules:
+  - path_regex: .+production.+
+    age: age1c4vknrtwq3zy9u66qmvhfcftqww4pject6dahw04f8xhtfm2py2sndxkka
+  - path_regex: .+staging.+
+    age: age1c4vknrtwq3zy9u66qmvhfcftqww4pject6dahw04f8xhtfm2py2sndxkka
+  - path_regex: .+secret(s)?\.yaml
+    age: age1c4vknrtwq3zy9u66qmvhfcftqww4pject6dahw04f8xhtfm2py2sndxkka
