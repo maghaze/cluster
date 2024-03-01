@@ -1,3 +1,0 @@
----
-- include_tasks: create-cluster.yaml
-- include_tasks: setup-network.yaml
